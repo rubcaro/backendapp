@@ -12,9 +12,15 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Banco de sangre
+Route::get('/banco-sangre/ingresar-notificacion', 'BancoSangreController@seeAddNotification')
+    ->name('seeAddNotification');
+Route::get('/banco-sangre/ver-notificaciones', 'BancoSangreController@seeNotifications')
+    ->name('seeNotifications');
