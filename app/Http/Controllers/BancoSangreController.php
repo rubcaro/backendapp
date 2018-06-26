@@ -6,10 +6,13 @@ use App\Notificacion;
 use App\TipoSangre;
 use Illuminate\Http\Request;
 
+/**
+ * Controlador que maneja las acciones relacionadas con el Banco de Sangre
+ */
 class BancoSangreController extends Controller
 {
     /**
-     * Show the application dashboard.
+     * Muestra la página createNotification.
      *
      * @return \Illuminate\Http\Response
      */
@@ -20,6 +23,12 @@ class BancoSangreController extends Controller
         return view('bancoSangre.createNotification', compact('tiposSangre'));
     }
 
+    /**
+     * Muestra un listado de todas las notificaciones en la página seeNotifications.
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    
     public function seeNotifications()
     {
         $notificaciones = Notificacion::all();
@@ -27,6 +36,12 @@ class BancoSangreController extends Controller
         return view('bancoSangre.seeNotifications', compact('notificaciones'));
     }
 
+    /**
+     * Guarda una notificación en la BD, es usada como api.
+     *
+     * @param Illuminate\Http\Request
+     * @return Illuminate\Http\Response
+     **/
     public function storeNotification(Request $request) 
     {
         $notificacion = Notificacion::create($request->all());
