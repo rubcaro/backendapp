@@ -19,3 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('ingresar-notificacion', 'BancoSangreController@storeNotification');
+Route::post('ingresar-encuesta', 'EncuestaController@store');
+Route::get('encuesta/{id}', 'EncuestaController@show');
+Route::post('ingresar-resultado', 'EncuestaController@storeResult');

@@ -32,21 +32,25 @@ export default class Example extends Component {
   render() {
     return (
       <div className="row">
-        {this.state.encuestas.map((encuesta, index) => (
+        {/* {this.state.encuestas.map((encuesta, index) => (
           <button
             onClick={() => this.setState({ currentEncuesta: encuesta })}
             key={index}
           >
             {encuesta.nombre} - {encuesta.id}
           </button>
-        ))}
-        <button onClick={() => this.showAddEncuesta()}>
-          Ingresar encuesta
-        </button>
+        ))} */}
+        <div className="col-12">
+          <button onClick={() => this.showAddEncuesta()} className="btn btn-primary btn-fw">
+            Ingresar encuesta
+          </button>
+        </div>
         {Object.keys(this.state.currentEncuesta).length != 0 && (
           <Encuesta encuesta={this.state.currentEncuesta} />
         )}
-        {this.state.addEncuesta && <AddEncuesta/>}
+        <div className="col-12">
+          {this.state.addEncuesta && <AddEncuesta/>}
+        </div>
       </div>
     );
   }

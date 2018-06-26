@@ -6,3 +6,36 @@
 .main-panel h2 {
   margin-bottom: 1em;
 }
+
+.alternativa {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
+.alternativa li {
+  margin-right: 1em;
+  font-size: 1.2em;
+}
+
+.alternativa i {
+  font-size: 1em;
+}
+
+/* Animations */
+
+.fade-enter {
+  opacity: 0.01;
+}
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+.fade-exit {
+  opacity: 1;
+}
+.fade-exit-active {
+  opacity: 0.01;
+  transition: opacity 500ms ease-in;
+}
