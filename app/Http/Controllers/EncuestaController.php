@@ -65,7 +65,7 @@ class EncuestaController extends Controller
             $detalle->save();
         }
 
-        return response()->json(['it works'], 200);
+        return response()->json($respuesta, 200);
     }
 
     /**

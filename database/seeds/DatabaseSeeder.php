@@ -66,5 +66,20 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
         );
+
+        $cantidadRespuestas = 100;
+
+        for ($numeroRespuesta=0; $numeroRespuesta < $cantidadRespuestas; $numeroRespuesta++) { 
+            $respuesta = new Respuesta();
+            $respuesta->encuesta_id = $encuesta->id;
+            $respuesta->save();
+            foreach ($encuesta->preguntas as $pregunta) {
+                $detalle = new Detalle();
+                $detalle->respuesta_id = $respuesta->id;
+                $detalle->pregunta_id = $pregunta->id;
+                $detalle->alternativa_id = $pregunta->alternativas->random()->id;
+                $detalle->save();
+            }
+        }
     }
 }
