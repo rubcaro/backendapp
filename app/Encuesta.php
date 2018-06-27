@@ -4,6 +4,7 @@ namespace App;
 
 use App\User;
 use App\Pregunta;
+use App\Respuesta;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -32,5 +33,13 @@ class Encuesta extends Model
     public function preguntas() 
     {
         return $this->hasMany(Pregunta::class);
+    }
+
+    /**
+     * Relación uno a muchos con el modelo Respuesta
+     */
+    public function respuestas()
+    {
+        return $this->hasMany(Respuesta::class);
     }
 }

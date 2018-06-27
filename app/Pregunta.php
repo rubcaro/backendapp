@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Detalle;
 use App\Encuesta;
 use App\Alternativa;
 use Illuminate\Database\Eloquent\Model;
@@ -32,5 +33,12 @@ class Pregunta extends Model
     public function alternativas()
     {
         return $this->hasMany(Alternativa::class);
+    }
+    /**
+     * relación uno a muchos con el modelo Detalle
+     */
+    public function detalles()
+    {
+        return $this->hasMany(Detalle::class);
     }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Encuesta;
 use App\Pregunta;
 use App\Alternativa;
-use App\Resultado;
+use App\Respuestaa;
 use Illuminate\Http\Request;
 
 /**
@@ -45,15 +45,22 @@ class EncuestaController extends Controller
         return response()->json($encuesta, 200);
     }
 
-    
+
+    /**
+     * Alamacena una respuesta de la encuesta
+     * 
+     * @param \Illuminate\Http\Request
+     * @return \Illuminate\Http\Response
+     */
     public function storeResult(Request $request) {
-        foreach ($request->respuestas as $respuesta) {
-            $resultado = new Resultado();
-            // dd($respuesta);
-            $resultado->pregunta_id = $respuesta["pregunta_id"];
-            $resultado->alternativa_id = $respuesta["alternativa"];
-            $resultado->encuesta_id = $request->encuesta_id;
-            $resultado->save();
+        $respuesta = new Respuesta();
+        $respuesta->encuesta_id = $request->encuesta_id;
+        $respuesta->save();
+        foreach ($request->respuestas as $res) {
+            $detalle = new Detalle();
+            $detalle->pregunta_id = $res["pregunta_id"];
+            $detalle->alternativa_id = $res["alternativa"];
+            $detalle->save();
         }
 
         return response()->json(['it works'], 200);

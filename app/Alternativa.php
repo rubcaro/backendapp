@@ -3,6 +3,8 @@
 namespace App;
 
 use App\Pregunta;
+use App\Detalle;
+
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -23,5 +25,12 @@ class Alternativa extends Model
     public function pregunta()
     {
         return $this->belongsTo(Pregunta::class);
+    }
+    /**
+     * Relación uno a muchos con el modelo Detalle
+     */
+    public function detalles()
+    {
+        return $this->hasMany(Detalle::class);
     }
 }
