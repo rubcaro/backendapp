@@ -17,10 +17,12 @@ class CreateRespuestaDetalleTable extends Migration
             $table->increments('id');
             $table->integer('pregunta_id')->unsigned();
             $table->integer('alternativa_id')->unsigned();
+            $table->integer('respuesta_id')->unsigned();
             $table->timestamps();
 
             $table->foreign('pregunta_id')->references('id')->on('pregunta');
             $table->foreign('alternativa_id')->references('id')->on('alternativa');
+            $table->foreign('respuesta_id')->references('id')->on('respuesta');
         });
     }
 

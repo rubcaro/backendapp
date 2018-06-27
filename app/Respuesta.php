@@ -27,7 +27,7 @@ class Respuesta extends Model
     /**
      * Relación uno a muchos con el modelo Respuesta Detalle
      */
-    public function detalle()
+    public function detalles()
     {
         return $this->hasMany(Detalle::class);
     }

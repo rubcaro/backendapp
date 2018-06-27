@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Encuesta;
 use App\Pregunta;
 use App\Alternativa;
-use App\Respuestaa;
+use App\Respuesta;
+use App\Detalle;
 use Illuminate\Http\Request;
 
 /**
@@ -60,6 +61,7 @@ class EncuestaController extends Controller
             $detalle = new Detalle();
             $detalle->pregunta_id = $res["pregunta_id"];
             $detalle->alternativa_id = $res["alternativa"];
+            $detalle->respuesta_id = $respuesta->id;
             $detalle->save();
         }
 

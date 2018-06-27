@@ -21,7 +21,7 @@ class Detalle extends Model
      */
     public function pregunta()
     {
-        return $this->belongsTo(Respuesta::class);
+        return $this->belongsTo(Pregunta::class);
     }
 
     /**
@@ -30,5 +30,13 @@ class Detalle extends Model
     public function alternativa()
     {
         return $this->belongsTo(Alternativa::clas);
+    }
+
+    /**
+     * Crea una relación uno a muchos con el modelo Respuesta
+     */
+    public function respuesta()
+    {
+        return $this->belongsTo(Respuesta::class);
     }
 }
