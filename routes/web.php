@@ -27,3 +27,4 @@ Route::get('/banco-sangre/ver-notificaciones', 'BancoSangreController@seeNotific
 
 //Encuestas
 Route::get('/encuestas', 'EncuestasController@seeEncuestas')->name('survey');
+Route::get('/encuestas/{id}/resultados', 'EncuestaController@seeResults')->name('seeResults');

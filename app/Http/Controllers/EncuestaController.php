@@ -80,4 +80,31 @@ class EncuestaController extends Controller
 
         return response()->json($encuesta, 200);
     }
+
+    public function showResults($id) {
+        $encuesta = Encuesta::findOrFail($id);
+        $resultados = [];
+        $resultados["resultados_totales"] = $encuesta->respuestas()->count();
+        foreach ($encuesta->preguntas as $key => $pregunta) {
+            $resultados["preguntas"][] = [
+                "id" => $pregunta->id,
+                "pregunta" => $pregunta->pregunta,
+            ];
+            foreach ($pregunta->alternativas as $alternativa) {
+                $cantidad = $alternativa->detalles->count();
+                // dump($key);
+                $resultados["preguntas"][$key]["alternativas"][] = [
+                    "id" => $alternativa->id,
+                    "alternativa" => $alternativa->alternativa, 
+                    "cantidad" => $cantidad,
+                ];
+            }
+        }
+        // dd($resultados);
+        return response()->json($resultados, 200);
+    }
+
+    public function seeResults($id) {
+        return view('encuestas.seeResults');
+    }
 }
