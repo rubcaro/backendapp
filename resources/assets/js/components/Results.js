@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 // import { PieChart, Pie, Tooltip } from "recharts";
 import { Pie } from "react-chartjs-2";
 
+import URL from "./../data/url"
+
 export default class Result extends Component {
   constructor() {
     super();
@@ -13,7 +15,7 @@ export default class Result extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:8000/api/encuestas/1/resultados")
+    fetch(URL + "/api/encuestas/1/resultados")
       .then(response => response.json())
       .then(data => {
         this.setState({ results: data });
@@ -25,7 +27,7 @@ export default class Result extends Component {
   createPreguntas() {
     let preguntas = [];
     this.state.results.preguntas.map(pregunta => {
-      let preg = {data: {}};
+      let preg = { data: {} };
       preg.pregunta = pregunta.pregunta;
       preg.data.labels = [];
       preg.data.datasets = [
@@ -50,7 +52,7 @@ export default class Result extends Component {
         }
       ];
       pregunta.alternativas.map(alternativa => {
-        preg.data.labels.push(alternativa.alternativa);
+        preg.data.labels.push(`${alternativa.cantidad} ${alternativa.alternativa}`);
         preg.data.datasets[0].data.push(alternativa.cantidad);
       });
       preguntas.push(preg);
@@ -62,10 +64,21 @@ export default class Result extends Component {
   render() {
     return (
       <div>
+        <h3>Respuestas totales: {this.state.results.resultados_totales}</h3>
         {this.state.preguntas.map((pregunta, key) => (
-          <div key={key}>
-            <h3>{pregunta.pregunta}</h3>
-            <Pie data={pregunta.data} options={{}} />
+          <div key={key} style={{width: '800px'}}>
+            <h3>
+              {key + 1}. {pregunta.pregunta}
+            </h3>
+            <Pie
+              data={pregunta.data}
+              width={100}
+              height={100}
+              options={{
+                legend: { labels: { fontSize: 14 }, position: "right", padding: 15 },
+                maintainAspectRatio: false
+              }}
+            />
           </div>
         ))}
       </div>

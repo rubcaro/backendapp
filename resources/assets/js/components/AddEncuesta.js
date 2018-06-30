@@ -1,6 +1,8 @@
 import React from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
+import URL from "./../data/url";
+
 export default class addEncuesta extends React.Component {
   constructor() {
     super();
@@ -26,7 +28,7 @@ export default class addEncuesta extends React.Component {
   }
 
   addEncuesta() {
-    fetch("http://localhost:8000/api/ingresar-encuesta", {
+    fetch(URL + "/api/ingresar-encuesta", {
       body: JSON.stringify(this.state.encuesta),
       headers: {
         "Content-Type": "application/json"
