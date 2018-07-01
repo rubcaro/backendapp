@@ -13,3 +13,6 @@ yarn-error.log
 /docs
 phpDocumentor.phar
 /build
+/resources/assets/js/data/url.js
+/public/js/app.js
+/public/js/app2.js
