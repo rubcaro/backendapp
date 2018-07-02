@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 // import { PieChart, Pie, Tooltip } from "recharts";
 import { Pie } from "react-chartjs-2";
 
-import URL from "./../data/url"
+// import URL from "./../data/url"
 
 export default class Result extends Component {
   constructor() {
@@ -15,7 +15,7 @@ export default class Result extends Component {
   }
 
   componentDidMount() {
-    fetch(URL + "/api/encuestas/1/resultados")
+    fetch(APP_URL + "/api/encuestas/1/resultados")
       .then(response => response.json())
       .then(data => {
         this.setState({ results: data });

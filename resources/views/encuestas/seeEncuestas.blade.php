@@ -9,5 +9,6 @@
 @endsection
 
 @section('scripts')
+<script>APP_URL = "{{ url('/') }}"; console.log(APP_URL)</script>
 <script src="{{ asset('js/app.js') }}"></script>
 @endsection
