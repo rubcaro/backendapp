@@ -118,8 +118,8 @@ export default class addEncuesta extends React.Component {
         </div>
         <TransitionGroup>
           {this.state.encuesta.preguntas.map((pregunta, index) => (
-            <CSSTransition timeout={250} classNames="fade">
-              <div key={index}>
+            <CSSTransition timeout={250} classNames="fade" key={index}>
+              <div >
                 <hr />
                 <h5>Pregunta</h5>
                 <div className="row">
@@ -145,8 +145,8 @@ export default class addEncuesta extends React.Component {
                   <TransitionGroup>
                     {pregunta.alternativas.map(
                       (alternativa, indexAlternativa) => (
-                        <CSSTransition timeout={250} classNames="fade">
-                          <div key={indexAlternativa} className="alternativa">
+                        <CSSTransition timeout={250} classNames="fade" key={indexAlternativa}>
+                          <div className="alternativa">
                             <li>{alternativa}</li>
                             <button
                               onClick={() =>

@@ -17,6 +17,7 @@ class CreateEncuestaTable extends Migration
             $table->increments('id');
             $table->string('nombre');
             $table->integer('user_id')->unsigned();
+            $table->integer('estado')->default(1);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

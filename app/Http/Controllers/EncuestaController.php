@@ -104,7 +104,34 @@ class EncuestaController extends Controller
         return response()->json($resultados, 200);
     }
 
-    public function seeResults($id) {
-        return view('encuestas.seeResults');
+
+    public function seeResults($id) 
+    {
+        return view('encuestas.seeResults' ,compact('id'));
+    }
+
+    public function seeEncuestas()
+    {
+        $encuestas = Encuesta::all();
+
+        return view('encuestas.seeEncuestas', compact('encuestas'));
+    }
+
+    public function seeCreateEncuesta()
+    {
+        return view('encuestas.createEncuesta');
+    }
+
+    public function seeEncuesta($id)
+    {
+        $encuesta = Encuesta::findOrFail($id);
+
+        return view('encuestas.seeEncuesta', compact('encuesta'));
+    }
+
+    public function showEncuestas()
+    {
+        $encuestas = Encuesta::where('estado', 1)->get();
+        return response()->json($encuestas, 200);
     }
 }

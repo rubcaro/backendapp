@@ -23,5 +23,6 @@ Route::post('ingresar-notificacion', 'BancoSangreController@storeNotification');
 // Encuestas
 Route::post('ingresar-encuesta', 'EncuestaController@store');
 Route::get('encuesta/{id}', 'EncuestaController@show');
-Route::post('ingresar-resultado', 'EncuestaController@storeResult');
 Route::get('/encuestas/{id}/resultados', 'EncuestaController@showResults');
+Route::get('/encuestas', 'EncuestaController@showEncuestas');
+Route::post('ingresar-resultado', 'EncuestaController@storeResult');

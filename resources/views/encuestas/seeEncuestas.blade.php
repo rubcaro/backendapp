@@ -4,11 +4,21 @@
 <div class="container">
   <h2>Encuestas</h2>
 
-  <div id="example"></div>
+  <table>
+    <tr>
+      <td>Nombre encuesta</td>
+      <td>Fecha de Creación</td>
+      <td>Estado</td>
+      <td>Ver encuesta</td>
+    </tr>
+    @foreach ($encuestas as $encuesta)
+        <tr>
+          <td>{{$encuesta->nombre}}</td>
+          <td>{{$encuesta->created_at}}</td>
+          <td></td>
+          <td><a href="{{ route('seeEncuesta', ['id' => $encuesta->id]) }}">Ver encuesta</a></td>
+        </tr>
+    @endforeach
+  </table>
 </div>
-@endsection
-
-@section('scripts')
-<script>APP_URL = "{{ url('/') }}"; console.log(APP_URL)</script>
-<script src="{{ asset('js/app.js') }}"></script>
 @endsection

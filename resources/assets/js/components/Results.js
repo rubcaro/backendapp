@@ -15,7 +15,7 @@ export default class Result extends Component {
   }
 
   componentDidMount() {
-    fetch(APP_URL + "/api/encuestas/1/resultados")
+    fetch(`${APP_URL}/api/encuestas/${ID_ENCUESTA}/resultados`)
       .then(response => response.json())
       .then(data => {
         this.setState({ results: data });

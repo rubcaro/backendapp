@@ -52,6 +52,7 @@ class DatabaseSeeder extends Seeder
         $encuesta = new Encuesta();
         $encuesta->nombre = "Nueva encuesta 1";
         $encuesta->user_id = $user->id;
+        $encuesta->estado = 1;
         $encuesta->save();
 
         $cantidadPreguntas = 10;

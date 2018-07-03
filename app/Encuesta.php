@@ -12,6 +12,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Encuesta extends Model
 {
+    const ACTIVA = 1;
+    CONST INACTIVA = 0;
+
     /** @var string El nombre de la tabla  */
     protected $table = "encuesta";
 

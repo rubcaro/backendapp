@@ -9,6 +9,9 @@
 @endsection
 
 @section('scripts')
-<script>APP_URL = "{{ url('/') }}"; console.log(APP_URL)</script>
+<script>
+  const APP_URL = "{{ url('/') }}"; 
+  const ID_ENCUESTA = "{{ $id }}";
+</script>
 <script src="{{ asset('js/app2.js') }}"></script>
 @endsection
