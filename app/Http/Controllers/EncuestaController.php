@@ -8,6 +8,7 @@ use App\Alternativa;
 use App\Respuesta;
 use App\Detalle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * Conntrolador que maneja las acciones relacionadas con las encuestas
@@ -131,7 +132,10 @@ class EncuestaController extends Controller
 
     public function showEncuestas()
     {
-        $encuestas = Encuesta::where('estado', 1)->get();
+        $encuestas = Cache::remember('encuestas', 30, function() {
+            return Encuesta::where('estado', 1)->get();
+        });
+
         return response()->json($encuestas, 200);
     }
 }
