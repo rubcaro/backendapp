@@ -9,6 +9,8 @@ use App\Respuesta;
 use App\Detalle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use App\Jobs\Prueba;
+use PhpParser\Node\Scalar\Encapsed;
 
 /**
  * Conntrolador que maneja las acciones relacionadas con las encuestas
@@ -20,7 +22,7 @@ class EncuestaController extends Controller
      * Guarda una nueva encuesta, junto con sus preguntas y alternativas
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response en formato json
      */
     public function store(Request $request)
     {
@@ -52,7 +54,7 @@ class EncuestaController extends Controller
      * Alamacena una respuesta de la encuesta
      * 
      * @param \Illuminate\Http\Request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response en formato json
      */
     public function storeResult(Request $request) {
         $respuesta = new Respuesta();
@@ -73,15 +75,27 @@ class EncuestaController extends Controller
      * Devuelve la encuesta según el id dado, junto con sus preguntas y alternativas
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response en formato json
      */
     public function show($id)
     {
-        $encuesta = Encuesta::where('id', $id)->with('preguntas')->with('preguntas.alternativas')->get();
+        $encuesta = Cache::remember('encuesta-' . $id, 60, function() use ($id) {
+            return Encuesta::where('id', $id)
+                        ->with('preguntas')
+                        ->with('preguntas.alternativas')
+                        ->get();
+        });
+        // $encuesta = Encuesta::where('id', $id)->with('preguntas')->with('preguntas.alternativas')->get();
 
         return response()->json($encuesta, 200);
     }
 
+    /**
+     * Calcula los resultados de la encuesta, mostrando la cantidad total de votos para cada alternativa
+     *
+     * @param id int corresponde al id de la encuesta
+     * @return \Illuminate\Http\Response en formato json
+     */
     public function showResults($id) {
         $encuesta = Encuesta::findOrFail($id);
         $resultados = [];
@@ -101,16 +115,27 @@ class EncuestaController extends Controller
                 ];
             }
         }
+        
         // dd($resultados);
         return response()->json($resultados, 200);
     }
 
-
+    /**
+     * Se muestra la página en la cual se ven los resultados
+     *
+     * @param int $id corresponde al id de la encuesta
+     * @return \Illuminate\Http\Response
+     */
     public function seeResults($id) 
     {
         return view('encuestas.seeResults' ,compact('id'));
     }
 
+    /**
+     * Se muestra la página en la cual se ven las encuestas
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function seeEncuestas()
     {
         $encuestas = Encuesta::all();
@@ -118,11 +143,22 @@ class EncuestaController extends Controller
         return view('encuestas.seeEncuestas', compact('encuestas'));
     }
 
+    /**
+     * Se muestra la página en la cual se crea la encuesta
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function seeCreateEncuesta()
     {
         return view('encuestas.createEncuesta');
     }
 
+    /**
+     * Se muestra la página en la cual se ve un resumen de la encuesta
+     *
+     * @param id int corresponde al id de la encuesta
+     * @return \Illuminate\Http\Response
+     */
     public function seeEncuesta($id)
     {
         $encuesta = Encuesta::findOrFail($id);
@@ -130,6 +166,12 @@ class EncuestaController extends Controller
         return view('encuestas.seeEncuesta', compact('encuesta'));
     }
 
+    /**
+     * Se muestra la página en la cual se ven los resultados
+     *
+     * @param id int corresponde al id de la encuesta
+     * @return \Illuminate\Http\Response en formato json
+     */
     public function showEncuestas()
     {
         $encuestas = Cache::remember('encuestas', 30, function() {
@@ -137,5 +179,18 @@ class EncuestaController extends Controller
         });
 
         return response()->json($encuestas, 200);
+    }
+
+    public function changeStatus($id)
+    {
+        $encuesta = Encuesta::findOrFail($id);
+
+        $encuesta->estado == Encuesta::ACTIVA ? 
+            $encuesta->estado = Encuesta::INACTIVA :
+            $encuesta->estado = Encuesta::ACTIVA;
+
+        $encuesta->save();
+
+        return back();
     }
 }

@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-// import { PieChart, Pie, Tooltip } from "recharts";
 import { Pie } from "react-chartjs-2";
-
-// import URL from "./../data/url"
 
 export default class Result extends Component {
   constructor() {

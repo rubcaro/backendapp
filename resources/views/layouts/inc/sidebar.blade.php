@@ -41,10 +41,10 @@
         <div class="collapse" id="usuarios">
           <ul class="nav flex-column sub-menu">
             <li class="nav-item">
-              <a class="nav-link" href="pages/ui-features/buttons.html">Ver Usuarios</a>
+              <a class="nav-link" href="{{ route('seeUsers') }}">Ver Usuarios</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="pages/ui-features/typography.html">Agregar Usuario</a>
+              <a class="nav-link" href="{{ route('createUser') }}">Agregar Usuario</a>
             </li>
           </ul>
         </div>
