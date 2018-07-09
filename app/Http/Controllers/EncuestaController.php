@@ -79,13 +79,13 @@ class EncuestaController extends Controller
      */
     public function show($id)
     {
-        $encuesta = Cache::remember('encuesta-' . $id, 60, function() use ($id) {
-            return Encuesta::where('id', $id)
-                        ->with('preguntas')
-                        ->with('preguntas.alternativas')
-                        ->get();
-        });
-        // $encuesta = Encuesta::where('id', $id)->with('preguntas')->with('preguntas.alternativas')->get();
+        // $encuesta = Cache::remember('encuesta-' . $id, 60, function() use ($id) {
+        //     return Encuesta::where('id', $id)
+        //                 ->with('preguntas')
+        //                 ->with('preguntas.alternativas')
+        //                 ->get();
+        // });
+        $encuesta = Encuesta::where('id', $id)->with('preguntas')->with('preguntas.alternativas')->get();
 
         return response()->json($encuesta, 200);
     }
@@ -174,9 +174,10 @@ class EncuestaController extends Controller
      */
     public function showEncuestas()
     {
-        $encuestas = Cache::remember('encuestas', 30, function() {
-            return Encuesta::where('estado', 1)->get();
-        });
+        // $encuestas = Cache::remember('encuestas', 30, function() {
+        //     return Encuesta::where('estado', 1)->get();
+        // });
+        $encuestas = Encuesta::where('estado', 1)->get();
 
         return response()->json($encuestas, 200);
     }
