@@ -49,7 +49,10 @@ export default class Result extends Component {
         }
       ];
       pregunta.alternativas.map(alternativa => {
-        preg.data.labels.push(`${alternativa.cantidad} ${alternativa.alternativa}`);
+        let porcentaje = (alternativa.cantidad * 100) / this.state.results.resultados_totales;
+        preg.data.labels.push(
+          `${alternativa.alternativa} ${porcentaje.toFixed(2)}%`
+        );
         preg.data.datasets[0].data.push(alternativa.cantidad);
       });
       preguntas.push(preg);
@@ -63,7 +66,7 @@ export default class Result extends Component {
       <div>
         <h3>Respuestas totales: {this.state.results.resultados_totales}</h3>
         {this.state.preguntas.map((pregunta, key) => (
-          <div key={key} style={{width: '800px'}}>
+          <div key={key} style={{ width: "800px" }}>
             <h3>
               {key + 1}. {pregunta.pregunta}
             </h3>
@@ -72,7 +75,11 @@ export default class Result extends Component {
               width={100}
               height={100}
               options={{
-                legend: { labels: { fontSize: 14 }, position: "right", padding: 15 },
+                legend: {
+                  labels: { fontSize: 14 },
+                  position: "right",
+                  padding: 15
+                },
                 maintainAspectRatio: false
               }}
             />

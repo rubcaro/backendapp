@@ -18,7 +18,7 @@
         <i class="input-helper"></i>
       </label>
     </div>
-    <a href="{{ route('changeStatus', $encuesta->id) }}" class="btn btn-default">dsfdf</a>
+    <a href="{{ route('changeStatus', $encuesta->id) }}" class="btn btn-default">Cambiar estado</a>
   </div>
   
   @foreach ($encuesta->preguntas as $pregunta)

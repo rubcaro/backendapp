@@ -68,7 +68,7 @@ class DatabaseSeeder extends Seeder
             }
         );
 
-        $cantidadRespuestas = 100;
+        $cantidadRespuestas = 105;
 
         for ($numeroRespuesta=0; $numeroRespuesta < $cantidadRespuestas; $numeroRespuesta++) { 
             $respuesta = new Respuesta();
