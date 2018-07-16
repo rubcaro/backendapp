@@ -41,11 +41,11 @@
 	{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> --}}
 	<!-- Scripts -->
 	<script src="{{ asset('js/app.js') }}"></script>
-	<script src="{{ asset('js/dashboard/vendor.bundle.addons.js') }}"></script>
+	{{-- <script src="{{ asset('js/dashboard/vendor.bundle.addons.js') }}"></script> --}}
 	<script src="{{ asset('js/dashboard/vendor.bundle.base.js') }}"></script>
-	<script src="{{ asset('js/dashboard/dashboard.js') }}"></script>
-	<script src="{{ asset('js/dashboard/misc.js') }}"></script>
-	<script src="{{ asset('js/dashboard/off-canvas.js') }}"></script>
+	{{-- <script src="{{ asset('js/dashboard/dashboard.js') }}"></script> --}}
+	{{-- <script src="{{ asset('js/dashboard/misc.js') }}"></script>
+	<script src="{{ asset('js/dashboard/off-canvas.js') }}"></script> --}}
 	
 	@yield('scripts')
 </body>

@@ -28,19 +28,43 @@ export default class addEncuesta extends React.Component {
   }
 
   addEncuesta() {
-    fetch(APP_URL + "/api/ingresar-encuesta", {
-      body: JSON.stringify(this.state.encuesta),
-      headers: {
-        "Content-Type": "application/json"
-      },
-      method: "POST"
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        alert("Encuesta se ha agregado correctamente");
+    if (this.validateEncuesta()) {
+      fetch(APP_URL + "/api/ingresar-encuesta", {
+        body: JSON.stringify(this.state.encuesta),
+        headers: {
+          "Content-Type": "application/json"
+        },
+        method: "POST"
       })
-      .catch(error => console.error(error));
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          alert("Encuesta se ha agregado correctamente");
+        })
+        .catch(error => console.error(error));
+    } else {
+      alert('Relleno los campos faltantes por favor');
+    }
+  }
+
+  validateEncuesta() {
+    if (this.state.encuesta.nombre === '') {
+      return false;
+    }
+    if (this.state.encuesta.preguntas.length === 0) {
+      return false;
+    }
+    let flag = true;
+    this.state.encuesta.preguntas.map(pregunta => {
+      console.log(pregunta.pregunta === '');
+      if (pregunta.pregunta === '') {
+        flag = false;
+      }
+      if (pregunta.alternativas.length === 0) {
+        flag = false
+      }
+    })
+    return flag;
   }
 
   addPregunta() {
@@ -52,13 +76,17 @@ export default class addEncuesta extends React.Component {
   }
 
   addAlternativa(id) {
-    this.setState((prevState, props) => {
-      prevState.encuesta.preguntas[id].alternativas.push(
-        this.state.valorAlternativa
-      );
-      return { encuesta: prevState.encuesta };
-    });
-    this.setState({ valorAlternativa: "" });
+    if (this.state.valorAlternativa === '') {
+      alert('Ingrese algún valor por favor');
+    } else {
+      this.setState((prevState, props) => {
+        prevState.encuesta.preguntas[id].alternativas.push(
+          this.state.valorAlternativa
+        );
+        return { encuesta: prevState.encuesta };
+      });
+      this.setState({ valorAlternativa: "" });
+    }
   }
 
   deletePregunta(id) {

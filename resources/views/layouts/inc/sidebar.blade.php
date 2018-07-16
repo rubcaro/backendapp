@@ -10,7 +10,7 @@
           </div>
           <div class="text-wrapper">
             {{-- <p class="profile-name">{{ Auth::user()->name }} {{ Auth::user()->apepat }} {{ Auth::user()->apemat }}</p> --}}
-          <span class="profile-name">{{ Auth::user()->getFullNameAttribute() }}</span>
+          {{-- <span class="profile-name">{{ Auth::user()->getFullNameAttribute() }}</span> --}}
           </div>
         </div>
       </div>

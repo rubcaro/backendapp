@@ -15,30 +15,37 @@ Route::get('/', 'Auth\LoginController@showLogin');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['middleware' => 'isUserLoggedIn'], function() {
 
-// Banco de sangre
-Route::get('/banco-sangre/ingresar-notificacion', 'BancoSangreController@seeAddNotification')
+    
+    Route::get('/home', 'HomeController@index')->name('home');
+    
+    // Banco de sangre
+    Route::get('/banco-sangre/ingresar-notificacion', 'BancoSangreController@seeAddNotification')
     ->name('seeAddNotification');
-Route::get('/banco-sangre/ver-notificaciones', 'BancoSangreController@seeNotifications')
+    Route::get('/banco-sangre/ver-notificaciones', 'BancoSangreController@seeNotifications')
     ->name('seeNotifications');
+    
+    //Encuestas
+    Route::get('/encuestas', 'EncuestaController@seeEncuestas')->name('survey');
+    Route::get('/crear-encuesta', 'EncuestaController@seeCreateEncuesta')->name('seeCreateEncuesta');
+    Route::get('/encuestas/{id}/resultados', 'EncuestaController@seeResults')->name('seeResults');
+    Route::get('/encuestas/{id}', 'EncuestaController@seeEncuesta')->name('seeEncuesta');
+    Route::get('/encuestas/{id}/cambiar-estado', 'EncuestaController@changeStatus')->name('changeStatus');
+    Route::get('/encuestas/{id}/reporte', 'EncuestaController@report')->name('report');
+    
+    
+    //Usuarios
+    Route::get('/usuarios', 'UsuarioController@index')->name('seeUsers');
+    Route::get('/usuarios/{id}/editar', 'UsuarioController@seeEdit')->name('seeUser');
+    Route::put('/usuarios/{id}', 'UsuarioController@editUser')->name('editUser');
+    Route::delete('/usuarios/{id}', 'UsuarioController@destroy')->name('deleteUser');
+    Route::get('/usuarios/crear', 'UsuarioController@createUser')->name('createUser');
+    Route::post('usuarios/crear', 'UsuarioController@storeUser')->name('storeUser');
+});
 
-//Encuestas
-Route::get('/encuestas', 'EncuestaController@seeEncuestas')->name('survey');
-Route::get('/crear-encuesta', 'EncuestaController@seeCreateEncuesta')->name('seeCreateEncuesta');
-Route::get('/encuestas/{id}/resultados', 'EncuestaController@seeResults')->name('seeResults');
-Route::get('/encuestas/{id}', 'EncuestaController@seeEncuesta')->name('seeEncuesta');
-Route::get('/encuestas/{id}/cambiar-estado', 'EncuestaController@changeStatus')->name('changeStatus');
 
 // Testing
 Route::get('/loaderio-308a469d9826b163fc4bfcb251f40c19', function() {
     return 'loaderio-308a469d9826b163fc4bfcb251f40c19';
   });
-
-//Usuarios
-Route::get('/usuarios', 'UsuarioController@index')->name('seeUsers');
-Route::get('/usuarios/{id}/editar', 'UsuarioController@seeEdit')->name('seeUser');
-Route::put('/usuarios/{id}', 'UsuarioController@editUser')->name('editUser');
-Route::delete('/usuarios/{id}', 'UsuarioController@destroy')->name('deleteUser');
-Route::get('/usuarios/crear', 'UsuarioController@createUser')->name('createUser');
-Route::post('usuarios/crear', 'UsuarioController@storeUser')->name('storeUser');

@@ -12,7 +12,7 @@
       
       <li class="nav-item dropdown d-none d-xl-inline-block">
         <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-        <span class="profile-text">{{ Auth::user()->getFullNameAttribute() }}</span>
+        {{-- <span class="profile-text">{{ Auth::user()->getFullNameAttribute() }}</span> --}}
           {{-- <img class="img-xs rounded-circle" src="images/faces/face1.jpg" alt="Profile image"> --}}
           <i class="fas fa-user-circle"></i>
         </a>

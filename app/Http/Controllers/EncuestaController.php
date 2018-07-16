@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use App\Jobs\Prueba;
 use PhpParser\Node\Scalar\Encapsed;
-
+use Barryvdh\DomPDF\Facade as PDF;
 /**
  * Conntrolador que maneja las acciones relacionadas con las encuestas
  */
@@ -193,5 +193,34 @@ class EncuestaController extends Controller
         $encuesta->save();
 
         return back();
+    }
+
+    public function report($id) {
+        $encuesta = Encuesta::findOrFail($id);
+        $resultados = [];
+        $resultados["resultados_totales"] = $encuesta->respuestas()->count();
+        $resultados["nombre"] = $encuesta->nombre;
+        foreach ($encuesta->preguntas as $key => $pregunta) {
+            $resultados["preguntas"][] = [
+                "id" => $pregunta->id,
+                "pregunta" => $pregunta->pregunta,
+            ];
+            foreach ($pregunta->alternativas as $alternativa) {
+                $cantidad = $alternativa->detalles->count();
+                $porcentaje = round(($cantidad*100)/$resultados["resultados_totales"]);
+                // dump($key);
+                $resultados["preguntas"][$key]["alternativas"][] = [
+                    "id" => $alternativa->id,
+                    "alternativa" => $alternativa->alternativa, 
+                    "cantidad" => $cantidad,
+                    "porcentaje" => $porcentaje
+                ];
+            }
+        }
+        
+        $pdf = PDF::loadView('encuestas.resultado', compact('resultados'));
+        return $pdf->download('reporte.pdf');
+        // return view('encuestas.resultado', compact('resultados', 'porcentaje'));
+
     }
 }
