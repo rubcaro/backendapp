@@ -32,7 +32,7 @@ class BancoSangreController extends Controller
     public function seeNotifications()
     {
         $notificaciones = Notificacion::all();
-
+        
         return view('bancoSangre.seeNotifications', compact('notificaciones'));
     }
 

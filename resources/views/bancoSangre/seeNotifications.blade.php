@@ -5,16 +5,23 @@
 <div class="container">
   <h2>Notificaciones</h2>
 
-  @foreach ($notificaciones as $notificacion)
-    <ul>
-      <li>{{ $notificacion->titulo }}</li>
-      <li>{{ $notificacion->mensaje }}</li>
-      <li>{{ $notificacion->message_id }}</li>
-      <li>{{ $notificacion->tipoSangre }}</li>
-      <li>{{ $notificacion->usuario }}</li>
-      <li>{{ $notificacion->created_at }}</li>
-    </ul>
-  @endforeach
+  <table class="table table-hover">
+    <thead>
+      <th>Título</th>
+      <th>Mensaje</th>
+      <th>Fecha de creación</th>
+    </thead>
+    <tbody>
+      @foreach ($notificaciones as $notificacion)
+        <tr>
+          <td>{{ $notificacion->titulo }}</td>
+          <td>{{ $notificacion->mensaje }}</td>
+          <td>{{ $notificacion->created_at }}</td>
+        </tr>
+      @endforeach
+    </tbody>
+  </table>
+
 </div>
 
 @endsection
